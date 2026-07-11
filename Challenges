@@ -1,0 +1,9 @@
+Problem 1. Ideally, both motors must be rotating at the same RPM (rotations per minute) but in reality, one might might move faster than the other. In my case, it was the left motor rotating 
+faster than the right. 
+Fix: I adjusted the speed of both motors to rotate at the rpm by controlling the analog output signal to the motors.
+
+Problem 2. When commanded to move backward, the right motor would work as expected but the left motor needed a little nudge to start rotating. This was because there wasn't enough voltage
+to overcome the starting torque.
+Fix: Make sure the batteries are providing sufficient voltage (check using a multimeter) and ensure there aren't too many components close to the motor that could interfere with the magnetic field
+of the motor.
+
