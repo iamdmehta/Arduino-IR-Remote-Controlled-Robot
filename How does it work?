@@ -1,0 +1,4 @@
+This robot works on infrared light detection. There is an IR remote, held by the robot operator, and IR receiver which is mounted on the robot.
+Each button on the remote encodes a particular code (usually hexadecimal, of the format 0x15,0x46,etc.). 
+You can customise any button to do any operation you like. In this project, I selected buttons 2,8,4 and 6 to correspond to forward, backward, leftward and rightward movement of the robot. I selected button 
+5 to be the "STOP" button.
