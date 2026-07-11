@@ -1,0 +1,127 @@
+#define DECODE_NEC
+#include <IRremote.hpp>
+
+const int IN1 = 2;
+const int IN2 = 4;
+const int IN3 = 7;
+const int IN4 = 8; 
+
+const int ENA=3;
+const int ENB=5; 
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(9600);
+  IrReceiver.begin(11, true);
+
+  pinMode(IN1, OUTPUT);
+  pinMode(IN2, OUTPUT);
+  pinMode(IN3, OUTPUT);
+  pinMode(IN4, OUTPUT);
+  pinMode(ENA, OUTPUT);
+  pinMode(ENB, OUTPUT);
+}
+
+void loop(){
+if (IrReceiver.decode()){
+  switch(IrReceiver.decodedIRData.command){
+    case 0x46:
+    Serial.println("Forward");
+    forward();
+    IrReceiver.resume();
+    break; 
+
+    case 0x44:
+    Serial.println("Left");
+    left();
+    IrReceiver.resume();
+    break;
+
+    case 0x43:
+    Serial.println("Right");
+    right();
+    IrReceiver.resume();
+    break; 
+
+    case 0x15:
+    Serial.println("Backward");
+    backward();
+    IrReceiver.resume();
+    break; 
+
+    case 0x40:
+    Serial.println("Stop");
+    stop();
+    IrReceiver.resume();
+    break;
+
+    default:
+    Serial.println("Unknown button pressed!");
+    stop();
+    IrReceiver.resume();
+    break;
+  }
+  
+
+}
+}
+
+void right(){
+  //right acw
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  //left cw
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
+  analogWrite(ENA,255); //left motor speed 
+  analogWrite(ENB,255); //right motor speed
+}
+
+void left(){
+  //right cw
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  //left acw
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+
+  analogWrite(ENA,255); //left motor speed 
+  analogWrite(ENB,255); //right motor speed
+}
+
+void forward(){
+  //right cw
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, HIGH);
+  //left cw
+  digitalWrite(IN3, HIGH);
+  digitalWrite(IN4, LOW);
+
+  analogWrite(ENA,255); //left motor speed 
+  analogWrite(ENB,255); //right motor speed
+}
+
+void backward(){
+  //right acw
+  digitalWrite(IN1, HIGH);
+  digitalWrite(IN2, LOW);
+  //left acw
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, HIGH);
+
+  analogWrite(ENA,255); //left motor speed 
+  analogWrite(ENB,255); //right motor speed
+}
+
+
+void stop(){
+  
+  digitalWrite(IN1, LOW);
+  digitalWrite(IN2, LOW);
+  
+  digitalWrite(IN3, LOW);
+  digitalWrite(IN4, LOW);
+
+  analogWrite(ENA,0); //left motor speed 
+  analogWrite(ENB,0); //right motor speed
+}
